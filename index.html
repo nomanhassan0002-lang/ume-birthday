@@ -1,270 +1,529 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Princess ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>For My Queen 👑 | Magical 3D Experience</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #ff4e50;
-            --secondary: #f9d423;
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
+            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --primary-accent: #ff007f;
+            --secondary-accent: #00f3ff;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
         body {
             min-height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: var(--bg-gradient);
+            font-family: 'Outfit', sans-serif;
             color: #ffffff;
+            perspective: 1000px;
             transition: background 1.5s ease-in-out;
         }
 
-        /* Floating background elements */
-        .particles {
+        /* Background Showering Canvas (Flowers, Sparkles, Party Boofers) */
+        #bg-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 1;
         }
 
-        .particle {
-            position: absolute;
-            bottom: -50px;
-            font-size: 24px;
-            animation: float 7s infinite ease-in-out;
-            opacity: 0.7;
+        /* Dynamic Container for Burst Hearts */
+        #heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* High-Level Glassmorphism Card */
-        .glass-card {
+        /* 1. TOP-TO-BOTTOM SLIDE ANIMATION ON LOAD */
+        .viewport-container {
             position: relative;
             z-index: 10;
-            background: var(--glass-bg);
+            width: 90%;
+            max-width: 500px;
+            animation: slideDownFromTop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideDownFromTop {
+            0% {
+                transform: translateY(-120vh) scale(0.7);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 3D Glassmorphism Card */
+        .glass-card-3d {
+            background: rgba(20, 20, 35, 0.65);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px 25px;
-            width: 90%;
-            max-width: 460px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 35px;
+            padding: 35px 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.15);
             text-align: center;
-            animation: fadeIn 1s ease-out;
+            transition: transform 0.4s ease, opacity 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ff85a2; text-shadow: 0 0 10px rgba(255,133,162,0.5); margin-bottom: 15px; }
-        p { font-size: 0.98rem; line-height: 1.6; color: #e0e0e0; margin-bottom: 20px; }
-
-        /* Custom Button */
-        .btn-glow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 35px;
-            font-size: 1.1rem;
-            font-weight: 600;
+        h1.title-3d {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
             color: #ffffff;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            text-shadow: 0 0 15px var(--primary-accent), 0 0 25px var(--secondary-accent);
+            margin-bottom: 12px;
+        }
+
+        p.subtitle {
+            font-size: 1.05rem;
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* 2. ANIMATED ARROW POINTING TO BUTTON */
+        .arrow-pointer {
+            font-size: 2.2rem;
+            margin-top: 10px;
+            display: inline-block;
+            animation: pointerBounce 1s infinite alternate;
+            color: var(--secondary-accent);
+            text-shadow: 0 0 10px var(--secondary-accent);
+        }
+
+        @keyframes pointerBounce {
+            0% { transform: translateY(-8px) scale(1); }
+            100% { transform: translateY(8px) scale(1.2); }
+        }
+
+        /* 3. CONTINUOUS PULSING ANIMATED BUTTON */
+        .btn-action-3d {
+            display: inline-block;
+            padding: 16px 36px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-accent), #ff4b2b);
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
-            transition: all 0.3s ease;
-            margin-top: 15px;
+            box-shadow: 0 10px 0 #99004d, 0 15px 25px rgba(0,0,0,0.5);
+            transition: all 0.15s ease;
+            outline: none;
+            margin-top: 5px;
+            animation: btnGlowPulse 1.5s infinite alternate;
+            position: relative;
+            z-index: 20;
         }
 
-        .btn-glow:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.7);
+        @keyframes btnGlowPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 0 #99004d, 0 0 15px rgba(255, 0, 127, 0.5);
+            }
+            100% {
+                transform: scale(1.06);
+                box-shadow: 0 12px 0 #99004d, 0 0 30px rgba(0, 243, 255, 0.9);
+            }
         }
 
-        /* Countdown Grid */
-        .timer-grid {
+        .btn-action-3d:active {
+            transform: translateY(6px) scale(0.98);
+            box-shadow: 0 4px 0 #99004d, 0 5px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Multi-Color Flying Hearts Animation */
+        .burst-heart {
+            position: absolute;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: floatAndFade 1.8s ease-out forwards;
+        }
+
+        @keyframes floatAndFade {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--dx), var(--dy)) scale(1.6) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Countdown Style */
+        .countdown-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             margin: 25px 0;
         }
 
-        .time-box {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 5px;
-            border-radius: 15px;
+        .time-node {
+            background: rgba(0, 0, 0, 0.75);
+            border: 2px solid var(--secondary-accent);
+            border-radius: 18px;
+            padding: 14px 4px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
         }
 
-        .time-box span { font-size: 1.5rem; font-weight: 700; color: #ff85a2; display: block; }
-        .time-box label { font-size: 0.75rem; text-transform: uppercase; color: #bbb; }
+        .time-value {
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: #00f3ff;
+            text-shadow: 0 0 10px #00f3ff;
+            display: block;
+        }
 
-        /* Image Display Frame */
-        .img-frame {
-            position: relative;
-            width: 230px;
-            height: 230px;
+        .time-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Photo Frame */
+        .photo-frame-3d {
+            width: 240px;
+            height: 240px;
             margin: 0 auto 20px auto;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
 
-        .img-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-frame-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        /* Sections Toggle */
-        #sec-countdown, #sec-cards { display: none; }
+        .page-sec {
+            display: none;
+        }
+        .page-sec.active-page {
+            display: block !important;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00f3ff;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            margin-bottom: 15px;
+        }
     </style>
 </head>
-<body id="body-bg">
+<body>
 
-    <div class="particles" id="particles"></div>
+    <!-- Continuous Showering Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
-    <!-- PAGE 1: PINK GIRL THEME WELCOME SCREEN -->
-    <div class="glass-card" id="sec-welcome">
-        <h1>Welcome My Love 👑❤️</h1>
-        <p>A special magical space created purely with love, just for you...</p>
-        <div style="font-size: 2rem; margin: 15px 0; animation: bounce 1.5s infinite;">👇</div>
-        <button class="btn-glow" onclick="startExperience()">Press Here My Love 💖 ➔</button>
-    </div>
+    <!-- Overlay Container for Hearts Burst -->
+    <div id="heart-container"></div>
 
-    <!-- PAGE 2: COUNTDOWN SCREEN -->
-    <div class="glass-card" id="sec-countdown">
-        <h1>Counting Down To Your Big Day ✨</h1>
-        <p id="daily-theme-text">Every single second brings me closer to celebrating you! 🎈</p>
+    <div class="viewport-container">
         
-        <div class="timer-grid">
-            <div class="time-box"><span id="days">00</span><label>Days</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
-            <div class="time-box"><span id="mins">00</span><label>Mins</label></div>
-            <div class="time-box"><span id="secs">00</span><label>Secs</label></div>
+        <!-- SCREEN 1: WELCOME SCREEN -->
+        <div class="glass-card-3d page-sec active-page" id="page-welcome">
+            <div class="status-badge">✨ Interactive 3D World</div>
+            <h1 class="title-3d">Welcome My Love 👑</h1>
+            <p class="subtitle">A magical 3D world created exclusively for you. Click below to enter...</p>
+            
+            <!-- Animated Arrow Pointer -->
+            <div class="arrow-pointer">👇 Click Here My Jan 👇</div>
+            <br>
+            
+            <!-- Animated Glowing Button -->
+            <button class="btn-action-3d" onclick="goCountdown(event)">
+                Open My Heart ❤️ ➔
+            </button>
         </div>
 
-        <button class="btn-glow" style="background: linear-gradient(45deg, #11998e, #38ef7d);" onclick="checkUnlock()">Open Surprise 🎁</button>
-    </div>
+        <!-- SCREEN 2: COUNTDOWN TIMER -->
+        <div class="glass-card-3d page-sec" id="page-countdown">
+            <div class="status-badge" id="theme-text">🕒 Hourly Theme Active</div>
+            <h1 class="title-3d">Counting Down</h1>
+            <p class="subtitle">Dynamic themes and sweet melodies changing every single hour for you!</p>
+            
+            <div class="countdown-grid">
+                <div class="time-node">
+                    <span class="time-value" id="val-days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-node">
+                    <span class="time-value" id="val-hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-node">
+                    <span class="time-value" id="val-mins">00</span>
+                    <span class="time-label">Mins</span>
+                </div>
+                <div class="time-node">
+                    <span class="time-value" id="val-secs">00</span>
+                    <span class="time-label">Secs</span>
+                </div>
+            </div>
 
-    <!-- PAGE 3: BIRTHDAY LETTER & SWIPE CARDS -->
-    <div class="glass-card" id="sec-cards">
-        <h1 id="card-heading">Happy Birthday My Jan! 🎉🎂</h1>
-        
-        <div class="img-frame">
-            <img id="card-img" src="" alt="Memory">
+            <button class="btn-action-3d" style="background: linear-gradient(135deg, #00f3ff, #0066ff); box-shadow: 0 10px 0 #0044ab;" onclick="checkSurpriseUnlock(event)">
+                Open Surprise 🎁
+            </button>
         </div>
 
-        <p id="card-text"></p>
+        <!-- SCREEN 3: MEMORY CARDS -->
+        <div class="glass-card-3d page-sec" id="page-cards">
+            <h1 class="title-3d" id="card-title">Happy Birthday! 🎉</h1>
+            
+            <div class="photo-frame-3d">
+                <img id="card-image" src="" alt="Memory">
+            </div>
 
-        <button class="btn-glow" id="btn-next" onclick="nextCard()">Next Memory 💖 ➔</button>
+            <p class="subtitle" id="card-desc" style="min-height: 70px;"></p>
+
+            <button class="btn-action-3d" id="btn-next-card" onclick="nextSlide(event)">
+                Next Memory 💖 ➔
+            </button>
+        </div>
+
     </div>
 
     <script>
         const targetDate = new Date("September 16, 2026 00:00:00").getTime();
 
-        /* Photo and Detailed Loving Memory Messages */
+        const hourlyGradients = [
+            "linear-gradient(135deg, #020205, #1a0033)", "linear-gradient(135deg, #050515, #2c003e)",
+            "linear-gradient(135deg, #0f0c29, #302b63)", "linear-gradient(135deg, #180b2d, #4a006e)",
+            "linear-gradient(135deg, #2b1055, #7597de)", "linear-gradient(135deg, #3a1c71, #d76d77)",
+            "linear-gradient(135deg, #ff7e5f, #feb47b)", "linear-gradient(135deg, #2193b0, #6dd5ed)",
+            "linear-gradient(135deg, #00b4db, #0083b0)", "linear-gradient(135deg, #11998e, #38ef7d)",
+            "linear-gradient(135deg, #f857a6, #ff5858)", "linear-gradient(135deg, #56ab2f, #a8e063)",
+            "linear-gradient(135deg, #00c6ff, #0072ff)", "linear-gradient(135deg, #e55d87, #5fc3e4)",
+            "linear-gradient(135deg, #ff4e50, #f9d423)", "linear-gradient(135deg, #4568dc, #b06ab3)",
+            "linear-gradient(135deg, #61045f, #aa076b)", "linear-gradient(135deg, #b92b27, #1565c0)",
+            "linear-gradient(135deg, #12100e, #2b4162)", "linear-gradient(135deg, #20002c, #cbb4d4)",
+            "linear-gradient(135deg, #000000, #152238)", "linear-gradient(135deg, #16001e, #3a0030)",
+            "linear-gradient(135deg, #03001e, #ec38bc)", "linear-gradient(135deg, #111111, #414345)"
+        ];
+
         const memories = [
-            {
-                img: "IMG-20260126-WA005.jpg",
-                title: "Happy Birthday Meri Jan! 🎂❤️",
-                text: "Happy Birthday my love! Meri zindagi mein aane ka bohot bohot shukriya. Aap mere liye kitni special hain, yeh bayan karne ke liye lafz kam hain! ❤️"
-            },
-            {
-                img: "IMG-20260221-WA016.jpg",
-                title: "Always Blessed ✨",
-                text: "Allah tala aapko hamesha khush rakhey, aabad rakhey aur har buri nazar se bachaye. Aapki har khwahish aur dua poori ho! 🤲💖"
-            },
-            {
-                img: "IMG-20260601-WA001.jpg",
-                title: "My Whole Heart 🌸",
-                text: "Aap ke aane se meri zindagi khubsurat ho gayi hai. Thank you for bringing so much peace, smiles, and love into my world! 💕"
-            },
-            {
-                img: "IMG-20260605-WA017.jpg",
-                title: "My Strength & Love 👑",
-                text: "Aap sirf meri love nahi, meri sab se achhi dost aur meri taqat bhi hain. Har din aap ke sath ek khubsurat gift ki tarah hai! 🌹"
-            },
-            {
-                img: "IMG-20260605-WA025.jpg",
-                title: "Forever & Always 💖",
-                text: "Thank you for being a part of my life! Main hamesha aapke sath khada rahoonga. <br><br><b>I LOVE YOU SO MUCH MY JAN! ❤️✨</b>"
-            }
+            { img: "IMG-20260126-WA005.jpg", title: "Happy Birthday Meri Jan! 🎂❤️", text: "Happy Birthday my love! Meri zindagi mein aane ka bohot bohot shukriya. Aap mere liye kitni special hain, yeh bayan karne ke liye lafz kam hain! ❤️" },
+            { img: "IMG-20260221-WA016.jpg", title: "Always Blessed ✨", text: "Allah tala aapko hamesha khush rakhey, aabad rakhey aur har buri nazar se bachaye. Aapki har khwahish aur dua poori ho! 🤲💖" },
+            { img: "IMG-20260601-WA001.jpg", title: "My Whole Heart 🌸", text: "Aap ke aane se meri zindagi khubsurat ho gayi hai. Thank you for bringing so much peace, smiles, and love into my world! 💕" },
+            { img: "IMG-20260605-WA017.jpg", title: "My Strength & Love 👑", text: "Aap sirf meri love nahi, meri sab se achhi dost aur meri taqat bhi hain. Har din aap ke sath ek khubsurat gift ki tarah hai! 🌹" },
+            { img: "IMG-20260605-WA025.jpg", title: "Forever & Always 💖", text: "Thank you for being a part of my life! Main hamesha aapke sath khada rahoonga. <br><br><b>I LOVE YOU SO MUCH MY JAN! ❤️✨</b>" }
         ];
 
         let currentIdx = 0;
 
-        function startExperience() {
-            document.getElementById("sec-welcome").style.display = "none";
-            document.getElementById("sec-countdown").style.display = "block";
-            document.getElementById("body-bg").style.background = "linear-gradient(135deg, #ff758c, #ff7eb3)";
-            createParticles();
-            playPianoSound();
+        function updateTheme() {
+            const h = new Date().getHours();
+            document.body.style.background = hourlyGradients[h];
+            document.getElementById("theme-text").innerText = `🕒 Hour ${h}:00 Dynamic Theme Active`;
         }
 
-        /* Countdown timer */
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
+        /* DIRECT DOM MULTI-COLOR HEART BLAST FUNCTION */
+        function triggerHeartBurst(e) {
+            const container = document.getElementById("heart-container");
+            const heartsList = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💖', '💗', '💓', '💞', '💘', '✨', '🌸', '🎉'];
+            
+            const clickX = e ? e.clientX : window.innerWidth / 2;
+            const clickY = e ? e.clientY : window.innerHeight / 2;
 
+            for (let i = 0; i < 35; i++) {
+                const hEl = document.createElement("div");
+                hEl.className = "burst-heart";
+                hEl.innerText = heartsList[Math.floor(Math.random() * heartsList.length)];
+                
+                hEl.style.left = clickX + "px";
+                hEl.style.top = clickY + "px";
+
+                // Random directions & rotations
+                const dx = (Math.random() - 0.5) * 450 + "px";
+                const dy = (Math.random() - 0.5) * 450 + "px";
+                const rot = (Math.random() - 0.5) * 720 + "deg";
+
+                hEl.style.setProperty('--dx', dx);
+                hEl.style.setProperty('--dy', dy);
+                hEl.style.setProperty('--rot', rot);
+
+                container.appendChild(hEl);
+
+                setTimeout(() => {
+                    hEl.remove();
+                }, 1800);
+            }
+        }
+
+        /* BACKGROUND CONTINUOUS SHOWER (FLOWERS, SPARKLES, BOOFERS) */
+        const canvas = document.getElementById("bg-canvas");
+        const ctx = canvas.getContext("2d");
+        let rainParticles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        const showerIcons = ['🌸', '🌹', '✨', '⭐', '🎉', '🎊', '🎈', '💖'];
+        for (let i = 0; i < 45; i++) {
+            rainParticles.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                speedY: Math.random() * 2 + 1,
+                speedX: Math.random() * 1 - 0.5,
+                size: Math.random() * 20 + 14,
+                icon: showerIcons[Math.floor(Math.random() * showerIcons.length)]
+            });
+        }
+
+        function renderShower() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of rainParticles) {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if (p.y > canvas.height) {
+                    p.y = -20;
+                    p.x = Math.random() * canvas.width;
+                }
+                ctx.font = `${p.size}px serif`;
+                ctx.fillText(p.icon, p.x, p.y);
+            }
+            requestAnimationFrame(renderShower);
+        }
+        renderShower();
+
+        // BUTTON ACTIONS
+        function goCountdown(e) {
+            triggerHeartBurst(e);
+            document.getElementById("page-welcome").classList.remove("active-page");
+            document.getElementById("page-countdown").classList.add("active-page");
+            updateTheme();
+            playPianoMelody();
+        }
+
+        setInterval(() => {
+            updateTheme();
+            const diff = targetDate - new Date().getTime();
             if (diff > 0) {
-                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("val-days").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                document.getElementById("val-hours").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                document.getElementById("val-mins").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                document.getElementById("val-secs").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
             } else {
-                unlockSurprise();
+                unlockCards();
             }
         }, 1000);
 
-        function checkUnlock() {
+        function checkSurpriseUnlock(e) {
+            triggerHeartBurst(e);
             if (new Date().getTime() >= targetDate) {
-                unlockSurprise();
+                unlockCards();
             } else {
-                alert("Patience my love! 🙈 The birthday letter unlocks on 16th September at 12:00 AM!");
+                setTimeout(() => {
+                    alert("Patience my love! 🙈 The birthday letter unlocks on 16th September at 12:00 AM!");
+                }, 150);
             }
         }
 
-        function unlockSurprise() {
-            document.getElementById("sec-countdown").style.display = "none";
-            document.getElementById("sec-cards").style.display = "block";
-            showCard(0);
+        function unlockCards() {
+            document.getElementById("page-countdown").classList.remove("active-page");
+            document.getElementById("page-cards").classList.add("active-page");
+            showSlide(0);
         }
 
-        function showCard(index) {
-            document.getElementById("card-heading").innerHTML = memories[index].title;
-            document.getElementById("card-img").src = memories[index].img;
-            document.getElementById("card-text").innerHTML = memories[index].text;
-
-            if (index === memories.length - 1) {
-                document.getElementById("btn-next").innerText = "End With Love ❤️";
+        function showSlide(idx) {
+            const m = memories[idx];
+            document.getElementById("card-title").innerText = m.title;
+            document.getElementById("card-image").src = m.img;
+            document.getElementById("card-desc").innerHTML = m.text;
+            if (idx === memories.length - 1) {
+                document.getElementById("btn-next-card").innerText = "End With Love ❤️";
             }
         }
 
-        function nextCard() {
+        function nextSlide(e) {
+            triggerHeartBurst(e);
             if (currentIdx < memories.length - 1) {
                 currentIdx++;
-                showCard(currentIdx);
+                showSlide(currentIdx);
             } else {
-                alert("I Love You Forever & Always! ❤️✨");
+                setTimeout(() => {
+                    alert("I Love You Forever & Always! ❤️✨");
+                }, 150);
             }
         }
 
-        /* Floating particles */
-        function createParticles() {
-            const container = document.getElementById("particles");
+        // AUDIO SYNTHESIZER
+        let audioCtx;
+        function playPianoMelody() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23];
+            let noteIdx = 0;
+
+            setInterval(() => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(notes[noteIdx % notes.length], audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+                noteIdx++;
+            }, 800);
+        }
+
+        updateTheme();
+    </script>
+</body>
+    </html>
+    const container = document.getElementById("particles");
             const icons = ['✨', '💖', '🎈', '🎉', '🌸', '✨'];
             setInterval(() => {
                 const p = document.createElement("div");
