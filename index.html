@@ -37,7 +37,6 @@
             transition: background 1.5s ease-in-out;
         }
 
-        /* Background Showering Canvas (Flowers, Sparkles, Party Boofers) */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -48,7 +47,6 @@
             z-index: 1;
         }
 
-        /* Dynamic Container for Burst Hearts */
         #heart-container {
             position: fixed;
             top: 0;
@@ -59,7 +57,6 @@
             z-index: 9999;
         }
 
-        /* 1. TOP-TO-BOTTOM SLIDE ANIMATION ON LOAD */
         .viewport-container {
             position: relative;
             z-index: 10;
@@ -79,7 +76,6 @@
             }
         }
 
-        /* 3D Glassmorphism Card */
         .glass-card-3d {
             background: rgba(20, 20, 35, 0.65);
             backdrop-filter: blur(20px);
@@ -108,7 +104,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* 2. ANIMATED ARROW POINTING TO BUTTON */
         .arrow-pointer {
             font-size: 2.2rem;
             margin-top: 10px;
@@ -123,7 +118,6 @@
             100% { transform: translateY(8px) scale(1.2); }
         }
 
-        /* 3. CONTINUOUS PULSING ANIMATED BUTTON */
         .btn-action-3d {
             display: inline-block;
             padding: 16px 36px;
@@ -159,7 +153,6 @@
             box-shadow: 0 4px 0 #99004d, 0 5px 10px rgba(0,0,0,0.5);
         }
 
-        /* Multi-Color Flying Hearts Animation */
         .burst-heart {
             position: absolute;
             font-size: 2rem;
@@ -181,7 +174,6 @@
             }
         }
 
-        /* Countdown Style */
         .countdown-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -215,7 +207,6 @@
             display: block;
         }
 
-        /* Photo Frame */
         .photo-frame-3d {
             width: 240px;
             height: 240px;
@@ -253,10 +244,7 @@
 </head>
 <body>
 
-    <!-- Continuous Showering Background Canvas -->
     <canvas id="bg-canvas"></canvas>
-
-    <!-- Overlay Container for Hearts Burst -->
     <div id="heart-container"></div>
 
     <div class="viewport-container">
@@ -267,11 +255,9 @@
             <h1 class="title-3d">Welcome My Love 👑</h1>
             <p class="subtitle">A magical 3D world created exclusively for you. Click below to enter...</p>
             
-            <!-- Animated Arrow Pointer -->
             <div class="arrow-pointer">👇 Click Here My Jan 👇</div>
             <br>
             
-            <!-- Animated Glowing Button -->
             <button class="btn-action-3d" onclick="goCountdown(event)">
                 Open My Heart ❤️ ➔
             </button>
@@ -358,7 +344,6 @@
             document.getElementById("theme-text").innerText = `🕒 Hour ${h}:00 Dynamic Theme Active`;
         }
 
-        /* DIRECT DOM MULTI-COLOR HEART BLAST FUNCTION */
         function triggerHeartBurst(e) {
             const container = document.getElementById("heart-container");
             const heartsList = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💖', '💗', '💓', '💞', '💘', '✨', '🌸', '🎉'];
@@ -374,7 +359,6 @@
                 hEl.style.left = clickX + "px";
                 hEl.style.top = clickY + "px";
 
-                // Random directions & rotations
                 const dx = (Math.random() - 0.5) * 450 + "px";
                 const dy = (Math.random() - 0.5) * 450 + "px";
                 const rot = (Math.random() - 0.5) * 720 + "deg";
@@ -391,7 +375,6 @@
             }
         }
 
-        /* BACKGROUND CONTINUOUS SHOWER (FLOWERS, SPARKLES, BOOFERS) */
         const canvas = document.getElementById("bg-canvas");
         const ctx = canvas.getContext("2d");
         let rainParticles = [];
@@ -431,7 +414,6 @@
         }
         renderShower();
 
-        // BUTTON ACTIONS
         function goCountdown(e) {
             triggerHeartBurst(e);
             document.getElementById("page-welcome").classList.remove("active-page");
@@ -492,7 +474,6 @@
             }
         }
 
-        // AUDIO SYNTHESIZER
         let audioCtx;
         function playPianoMelody() {
             if (audioCtx) return;
@@ -522,44 +503,5 @@
         updateTheme();
     </script>
 </body>
-    </html>
-    const container = document.getElementById("particles");
-            const icons = ['✨', '💖', '🎈', '🎉', '🌸', '✨'];
-            setInterval(() => {
-                const p = document.createElement("div");
-                p.className = "particle";
-                p.innerText = icons[Math.floor(Math.random() * icons.length)];
-                p.style.left = Math.random() * 95 + "vw";
-                p.style.animationDuration = (Math.random() * 3 + 5) + "s";
-                container.appendChild(p);
-                setTimeout(() => p.remove(), 7000);
-            }, 300);
-        }
-
-        /* Ambient Piano Audio Synthesizer */
-        let audioCtx;
-        function playPianoSound() {
-            if (audioCtx) return;
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 392.00];
-            let step = 0;
-            setInterval(() => {
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 1.5);
-                step++;
-            }, 700);
-        }
-    </script>
-</body>
-</html>
-
- 
+                                                  </html>
+    
