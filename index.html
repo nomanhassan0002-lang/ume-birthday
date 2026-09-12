@@ -1,507 +1,1418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Queen 👑 | Magical 3D Experience</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Her Special Surprise ❤️</title>
 
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            --primary-accent: #ff007f;
-            --secondary-accent: #00f3ff;
-        }
+<style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+/* =========================
+   BASIC
+========================= */
 
-        body {
-            min-height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-gradient);
-            font-family: 'Outfit', sans-serif;
-            color: #ffffff;
-            perspective: 1000px;
-            transition: background 1.5s ease-in-out;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+html,body{
+    width:100%;
+    height:100%;
+}
 
-        #heart-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
+body{
+    overflow:hidden;
+    font-family:Georgia,serif;
+    color:white;
 
-        .viewport-container {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 500px;
-            animation: slideDownFromTop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+    background:
+    radial-gradient(circle at 20% 20%,#5b005f,transparent 35%),
+    radial-gradient(circle at 80% 80%,#002d48,transparent 35%),
+    #050009;
 
-        @keyframes slideDownFromTop {
-            0% {
-                transform: translateY(-120vh) scale(0.7);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
+    transition:background 2s ease;
+}
 
-        .glass-card-3d {
-            background: rgba(20, 20, 35, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 35px;
-            padding: 35px 25px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.15);
-            text-align: center;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
 
-        h1.title-3d {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.2rem;
-            color: #ffffff;
-            text-shadow: 0 0 15px var(--primary-accent), 0 0 25px var(--secondary-accent);
-            margin-bottom: 12px;
-        }
+/* =========================
+   PAGE
+========================= */
 
-        p.subtitle {
-            font-size: 1.05rem;
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
+.page{
+    position:absolute;
+    inset:0;
 
-        .arrow-pointer {
-            font-size: 2.2rem;
-            margin-top: 10px;
-            display: inline-block;
-            animation: pointerBounce 1s infinite alternate;
-            color: var(--secondary-accent);
-            text-shadow: 0 0 10px var(--secondary-accent);
-        }
+    display:none;
 
-        @keyframes pointerBounce {
-            0% { transform: translateY(-8px) scale(1); }
-            100% { transform: translateY(8px) scale(1.2); }
-        }
+    justify-content:center;
+    align-items:center;
 
-        .btn-action-3d {
-            display: inline-block;
-            padding: 16px 36px;
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #ffffff;
-            background: linear-gradient(135deg, var(--primary-accent), #ff4b2b);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 0 #99004d, 0 15px 25px rgba(0,0,0,0.5);
-            transition: all 0.15s ease;
-            outline: none;
-            margin-top: 5px;
-            animation: btnGlowPulse 1.5s infinite alternate;
-            position: relative;
-            z-index: 20;
-        }
+    text-align:center;
 
-        @keyframes btnGlowPulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 10px 0 #99004d, 0 0 15px rgba(255, 0, 127, 0.5);
-            }
-            100% {
-                transform: scale(1.06);
-                box-shadow: 0 12px 0 #99004d, 0 0 30px rgba(0, 243, 255, 0.9);
-            }
-        }
+    padding:20px;
 
-        .btn-action-3d:active {
-            transform: translateY(6px) scale(0.98);
-            box-shadow: 0 4px 0 #99004d, 0 5px 10px rgba(0,0,0,0.5);
-        }
+    overflow-y:auto;
+}
 
-        .burst-heart {
-            position: absolute;
-            font-size: 2rem;
-            pointer-events: none;
-            animation: floatAndFade 1.8s ease-out forwards;
-        }
+.page.active{
+    display:flex;
+}
 
-        @keyframes floatAndFade {
-            0% {
-                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
-                opacity: 1;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--dx), var(--dy)) scale(1.6) rotate(var(--rot));
-                opacity: 0;
-            }
-        }
+.content{
+    width:100%;
+    max-width:720px;
 
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 25px 0;
-        }
+    position:relative;
+    z-index:10;
+}
 
-        .time-node {
-            background: rgba(0, 0, 0, 0.75);
-            border: 2px solid var(--secondary-accent);
-            border-radius: 18px;
-            padding: 14px 4px;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-        }
 
-        .time-value {
-            font-size: 1.9rem;
-            font-weight: 900;
-            color: #00f3ff;
-            text-shadow: 0 0 10px #00f3ff;
-            display: block;
-        }
+/* =========================
+   HEADINGS
+========================= */
 
-        .time-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #ffffff;
-            font-weight: 700;
-            margin-top: 4px;
-            display: block;
-        }
+h1{
+    font-size:clamp(2.2rem,9vw,5rem);
+    line-height:1.15;
 
-        .photo-frame-3d {
-            width: 240px;
-            height: 240px;
-            margin: 0 auto 20px auto;
-            border-radius: 25px;
-            overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-        }
+    text-shadow:
+    0 0 8px white,
+    0 0 20px #ff35d0,
+    0 0 45px #ff35d0;
 
-        .photo-frame-3d img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    animation:titleGlow 2s infinite alternate;
+}
 
-        .page-sec {
-            display: none;
-        }
-        .page-sec.active-page {
-            display: block !important;
-        }
+h2{
+    font-size:clamp(1.7rem,7vw,3.2rem);
 
-        .status-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #00f3ff;
-            border: 1px solid rgba(0, 243, 255, 0.4);
-            margin-bottom: 15px;
-        }
-    </style>
+    text-shadow:
+    0 0 10px #ff42d5,
+    0 0 25px #ff42d5;
+}
+
+p{
+    margin-top:18px;
+
+    font-size:clamp(1rem,4vw,1.3rem);
+
+    line-height:1.7;
+}
+
+@keyframes titleGlow{
+
+    from{
+        filter:brightness(1);
+    }
+
+    to{
+        filter:brightness(1.5);
+    }
+
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.surpriseBtn{
+
+    margin-top:30px;
+
+    padding:14px 28px 9px;
+
+    min-width:225px;
+
+    border:2px solid white;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:16px;
+
+    font-family:Arial,sans-serif;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 0 10px #ff35d1,
+    0 0 25px #ff35d1;
+
+    transition:.3s;
+}
+
+.surpriseBtn:hover{
+    transform:scale(1.07);
+}
+
+.surpriseBtn:active{
+    transform:scale(.93);
+}
+
+
+/* stylish curly arrow */
+
+.curlyArrow{
+
+    display:block;
+
+    margin-top:7px;
+
+    font-size:29px;
+
+    line-height:20px;
+
+    animation:arrowMove 1.3s infinite;
+
+    text-shadow:
+    0 0 8px white,
+    0 0 18px #00f7ff,
+    0 0 30px #ff00dd;
+}
+
+@keyframes arrowMove{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(7px);
+    }
+
+}
+
+
+/* =========================
+   FLOWERS
+========================= */
+
+.flower{
+
+    position:absolute;
+
+    bottom:-70px;
+
+    pointer-events:none;
+
+    z-index:2;
+
+    animation:flowerRise linear forwards;
+}
+
+@keyframes flowerRise{
+
+    0%{
+        transform:
+        translateY(0)
+        rotate(0deg)
+        scale(.5);
+
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateY(-120vh)
+        rotate(360deg)
+        scale(1.2);
+
+        opacity:0;
+    }
+
+}
+
+
+/* =========================
+   HEARTS
+========================= */
+
+.heart{
+
+    position:absolute;
+
+    top:-60px;
+
+    pointer-events:none;
+
+    z-index:50;
+
+    animation:heartRain linear forwards;
+}
+
+@keyframes heartRain{
+
+    0%{
+        transform:
+        translateY(0)
+        rotate(0deg)
+        scale(.4);
+
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateY(115vh)
+        rotate(450deg)
+        scale(1.5);
+
+        opacity:0;
+    }
+
+}
+
+
+/* =========================
+   PAGE 2 TEDDY
+========================= */
+
+.teddy{
+
+    font-size:120px;
+
+    animation:teddyBounce 1.6s infinite;
+}
+
+@keyframes teddyBounce{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-18px);
+    }
+
+}
+
+.giftFlower{
+
+    display:inline-block;
+
+    font-size:70px;
+
+    animation:giftMove 1.2s infinite alternate;
+}
+
+@keyframes giftMove{
+
+    from{
+        transform:
+        translateX(-12px)
+        rotate(-8deg);
+    }
+
+    to{
+        transform:
+        translateX(12px)
+        rotate(8deg);
+    }
+
+}
+
+
+/* =========================
+   PAGE 3 NEON
+========================= */
+
+#page3{
+
+    background:
+    radial-gradient(circle at center,#1c0048,#030006 65%);
+}
+
+.neonRing{
+
+    position:absolute;
+
+    width:340px;
+    height:340px;
+
+    border-radius:50%;
+
+    border:3px solid #00f7ff;
+
+    box-shadow:
+    0 0 15px #00f7ff,
+    0 0 45px #00f7ff,
+    inset 0 0 35px #ff00e6;
+
+    opacity:.28;
+
+    animation:ringSpin 9s linear infinite;
+}
+
+@keyframes ringSpin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.neonTitle{
+
+    color:white;
+
+    text-shadow:
+    0 0 5px white,
+    0 0 15px #00f7ff,
+    0 0 30px #ff00e6,
+    0 0 60px #ff00e6;
+}
+
+
+/* countdown */
+
+.countdown{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:28px;
+}
+
+.timeBox{
+
+    min-width:76px;
+
+    padding:14px 9px;
+
+    border:2px solid #00f7ff;
+
+    border-radius:14px;
+
+    background:rgba(0,0,0,.45);
+
+    box-shadow:
+    0 0 8px #00f7ff,
+    0 0 22px #00f7ff;
+
+}
+
+.timeNumber{
+
+    display:block;
+
+    font-family:Arial,sans-serif;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    text-shadow:0 0 12px #00f7ff;
+}
+
+.timeLabel{
+
+    font-family:Arial,sans-serif;
+
+    font-size:10px;
+
+    color:#aaffff;
+}
+
+
+/* =========================
+   LOCKED BUTTON
+========================= */
+
+.lockedBtn{
+
+    border-color:#ff3bcb;
+
+    box-shadow:
+    0 0 10px #ff3bcb,
+    0 0 30px #ff3bcb;
+}
+
+
+/* =========================
+   WARNING BOX
+========================= */
+
+.warningOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.72);
+
+    backdrop-filter:blur(7px);
+
+    z-index:200;
+}
+
+.warningBox{
+
+    width:100%;
+
+    max-width:470px;
+
+    padding:30px 22px;
+
+    border:2px solid #ff4bd8;
+
+    border-radius:25px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(45,0,45,.97),
+        rgba(5,0,20,.98)
+    );
+
+    box-shadow:
+    0 0 15px #ff3fd3,
+    0 0 45px #ff3fd3;
+
+    animation:warningAppear .7s ease;
+}
+
+@keyframes warningAppear{
+
+    from{
+        opacity:0;
+        transform:scale(.5) rotate(-4deg);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+
+}
+
+.warningTeddies{
+
+    font-size:60px;
+
+    margin-bottom:10px;
+
+    animation:teddyWarning 1.2s infinite alternate;
+}
+
+@keyframes teddyWarning{
+
+    from{
+        transform:translateX(-8px);
+    }
+
+    to{
+        transform:translateX(8px);
+    }
+
+}
+
+.warningIcon{
+
+    font-size:45px;
+
+    margin-bottom:10px;
+}
+
+.warningBox h2{
+
+    color:white;
+
+    font-size:clamp(1.5rem,6vw,2.4rem);
+
+    text-shadow:
+    0 0 10px #ff3fd3,
+    0 0 25px #ff3fd3;
+}
+
+.warningBox p{
+
+    font-size:16px;
+
+    line-height:1.7;
+
+    margin-top:15px;
+}
+
+
+/* =========================
+   PAGE 4 LOVE LETTER
+========================= */
+
+#page4{
+
+    background:
+    radial-gradient(circle at top,#510036,#09000e 65%);
+
+    overflow-y:auto;
+}
+
+.letter{
+
+    margin:20px auto;
+
+    max-width:640px;
+
+    padding:28px 24px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.97),
+        rgba(255,235,247,.97)
+    );
+
+    color:#3d1237;
+
+    text-align:left;
+
+    box-shadow:
+    0 0 15px #ff45d5,
+    0 0 45px #ff45d5;
+
+    animation:letterOpen 1.5s ease;
+}
+
+.letter h2{
+
+    color:#a31b73;
+
+    text-align:center;
+
+    text-shadow:none;
+
+    margin-bottom:20px;
+}
+
+.letter p{
+
+    font-family:Georgia,serif;
+
+    font-size:16px;
+
+    line-height:1.75;
+
+    margin:14px 0;
+}
+
+.signature{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#a31b73;
+
+    font-weight:bold;
+
+    font-size:18px;
+}
+
+@keyframes letterOpen{
+
+    from{
+        opacity:0;
+        transform:
+        translateY(80px)
+        scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateY(0)
+        scale(1);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+    .letter{
+        padding:22px 17px;
+    }
+
+    .letter p{
+        font-size:15px;
+    }
+
+    .teddy{
+        font-size:95px;
+    }
+
+}
+
+</style>
 </head>
+
+
 <body>
 
-    <canvas id="bg-canvas"></canvas>
-    <div id="heart-container"></div>
 
-    <div class="viewport-container">
-        
-        <!-- SCREEN 1: WELCOME SCREEN -->
-        <div class="glass-card-3d page-sec active-page" id="page-welcome">
-            <div class="status-badge">✨ Interactive 3D World</div>
-            <h1 class="title-3d">Welcome My Love 👑</h1>
-            <p class="subtitle">A magical 3D world created exclusively for you. Click below to enter...</p>
-            
-            <div class="arrow-pointer">👇 Click Here My Jan 👇</div>
-            <br>
-            
-            <button class="btn-action-3d" onclick="goCountdown(event)">
-                Open My Heart ❤️ ➔
-            </button>
+<!-- =====================================================
+PAGE 1
+===================================================== -->
+
+<section class="page active" id="page1">
+
+<div class="content">
+
+    <h1>
+        Welcome to<br>
+        Your Surprise ✨
+    </h1>
+
+    <p>
+        A little magical surprise<br>
+        is waiting for you... 💕
+    </p>
+
+    <button
+    class="surpriseBtn"
+    onclick="goToPage(2)">
+
+        Click Here Honeybee 🐝
+
+        <span class="curlyArrow">↡</span>
+
+    </button>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+PAGE 2
+===================================================== -->
+
+<section class="page" id="page2">
+
+<div class="content">
+
+    <div class="teddy">
+        🧸
+    </div>
+
+    <div class="giftFlower">
+        🌹
+    </div>
+
+    <h2>
+        Take it, my Kuchupuchu 🌸
+    </h2>
+
+    <p>
+        A little flower for someone<br>
+        very special to me. ❤️
+    </p>
+
+    <button
+    class="surpriseBtn"
+    onclick="goToPage(3)">
+
+        Click Here for Next Surprise
+
+        <span class="curlyArrow">↡</span>
+
+    </button>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+PAGE 3
+===================================================== -->
+
+<section class="page" id="page3">
+
+<div class="neonRing"></div>
+
+<div class="content">
+
+    <div style="font-size:70px;">
+        🎂✨
+    </div>
+
+    <h1 class="neonTitle">
+        Birthday Countdown
+    </h1>
+
+    <p>
+        Counting every second until
+        <br>
+        <b>16 September 2026 — 12:00 AM</b> 💖
+    </p>
+
+
+    <div class="countdown">
+
+        <div class="timeBox">
+
+            <span
+            class="timeNumber"
+            id="days">
+            00
+            </span>
+
+            <span class="timeLabel">
+            DAYS
+            </span>
+
         </div>
 
-        <!-- SCREEN 2: COUNTDOWN TIMER -->
-        <div class="glass-card-3d page-sec" id="page-countdown">
-            <div class="status-badge" id="theme-text">🕒 Hourly Theme Active</div>
-            <h1 class="title-3d">Counting Down</h1>
-            <p class="subtitle">Dynamic themes and sweet melodies changing every single hour for you!</p>
-            
-            <div class="countdown-grid">
-                <div class="time-node">
-                    <span class="time-value" id="val-days">00</span>
-                    <span class="time-label">Days</span>
-                </div>
-                <div class="time-node">
-                    <span class="time-value" id="val-hours">00</span>
-                    <span class="time-label">Hours</span>
-                </div>
-                <div class="time-node">
-                    <span class="time-value" id="val-mins">00</span>
-                    <span class="time-label">Mins</span>
-                </div>
-                <div class="time-node">
-                    <span class="time-value" id="val-secs">00</span>
-                    <span class="time-label">Secs</span>
-                </div>
-            </div>
 
-            <button class="btn-action-3d" style="background: linear-gradient(135deg, #00f3ff, #0066ff); box-shadow: 0 10px 0 #0044ab;" onclick="checkSurpriseUnlock(event)">
-                Open Surprise 🎁
-            </button>
+        <div class="timeBox">
+
+            <span
+            class="timeNumber"
+            id="hours">
+            00
+            </span>
+
+            <span class="timeLabel">
+            HOURS
+            </span>
+
         </div>
 
-        <!-- SCREEN 3: MEMORY CARDS -->
-        <div class="glass-card-3d page-sec" id="page-cards">
-            <h1 class="title-3d" id="card-title">Happy Birthday! 🎉</h1>
-            
-            <div class="photo-frame-3d">
-                <img id="card-image" src="" alt="Memory">
-            </div>
 
-            <p class="subtitle" id="card-desc" style="min-height: 70px;"></p>
+        <div class="timeBox">
 
-            <button class="btn-action-3d" id="btn-next-card" onclick="nextSlide(event)">
-                Next Memory 💖 ➔
-            </button>
+            <span
+            class="timeNumber"
+            id="minutes">
+            00
+            </span>
+
+            <span class="timeLabel">
+            MINUTES
+            </span>
+
+        </div>
+
+
+        <div class="timeBox">
+
+            <span
+            class="timeNumber"
+            id="seconds">
+            00
+            </span>
+
+            <span class="timeLabel">
+            SECONDS
+            </span>
+
         </div>
 
     </div>
 
-    <script>
-        const targetDate = new Date("September 16, 2026 00:00:00").getTime();
 
-        const hourlyGradients = [
-            "linear-gradient(135deg, #020205, #1a0033)", "linear-gradient(135deg, #050515, #2c003e)",
-            "linear-gradient(135deg, #0f0c29, #302b63)", "linear-gradient(135deg, #180b2d, #4a006e)",
-            "linear-gradient(135deg, #2b1055, #7597de)", "linear-gradient(135deg, #3a1c71, #d76d77)",
-            "linear-gradient(135deg, #ff7e5f, #feb47b)", "linear-gradient(135deg, #2193b0, #6dd5ed)",
-            "linear-gradient(135deg, #00b4db, #0083b0)", "linear-gradient(135deg, #11998e, #38ef7d)",
-            "linear-gradient(135deg, #f857a6, #ff5858)", "linear-gradient(135deg, #56ab2f, #a8e063)",
-            "linear-gradient(135deg, #00c6ff, #0072ff)", "linear-gradient(135deg, #e55d87, #5fc3e4)",
-            "linear-gradient(135deg, #ff4e50, #f9d423)", "linear-gradient(135deg, #4568dc, #b06ab3)",
-            "linear-gradient(135deg, #61045f, #aa076b)", "linear-gradient(135deg, #b92b27, #1565c0)",
-            "linear-gradient(135deg, #12100e, #2b4162)", "linear-gradient(135deg, #20002c, #cbb4d4)",
-            "linear-gradient(135deg, #000000, #152238)", "linear-gradient(135deg, #16001e, #3a0030)",
-            "linear-gradient(135deg, #03001e, #ec38bc)", "linear-gradient(135deg, #111111, #414345)"
-        ];
+    <button
+    id="letterButton"
+    class="surpriseBtn lockedBtn"
+    onclick="tryOpenLetter()">
 
-        const memories = [
-            { img: "IMG-20260126-WA005.jpg", title: "Happy Birthday Meri Jan! 🎂❤️", text: "Happy Birthday my love! Meri zindagi mein aane ka bohot bohot shukriya. Aap mere liye kitni special hain, yeh bayan karne ke liye lafz kam hain! ❤️" },
-            { img: "IMG-20260221-WA016.jpg", title: "Always Blessed ✨", text: "Allah tala aapko hamesha khush rakhey, aabad rakhey aur har buri nazar se bachaye. Aapki har khwahish aur dua poori ho! 🤲💖" },
-            { img: "IMG-20260601-WA001.jpg", title: "My Whole Heart 🌸", text: "Aap ke aane se meri zindagi khubsurat ho gayi hai. Thank you for bringing so much peace, smiles, and love into my world! 💕" },
-            { img: "IMG-20260605-WA017.jpg", title: "My Strength & Love 👑", text: "Aap sirf meri love nahi, meri sab se achhi dost aur meri taqat bhi hain. Har din aap ke sath ek khubsurat gift ki tarah hai! 🌹" },
-            { img: "IMG-20260605-WA025.jpg", title: "Forever & Always 💖", text: "Thank you for being a part of my life! Main hamesha aapke sath khada rahoonga. <br><br><b>I LOVE YOU SO MUCH MY JAN! ❤️✨</b>" }
-        ];
+        💌 Open Love Letter
 
-        let currentIdx = 0;
+        <span class="curlyArrow">↡</span>
 
-        function updateTheme() {
-            const h = new Date().getHours();
-            document.body.style.background = hourlyGradients[h];
-            document.getElementById("theme-text").innerText = `🕒 Hour ${h}:00 Dynamic Theme Active`;
-        }
+    </button>
 
-        function triggerHeartBurst(e) {
-            const container = document.getElementById("heart-container");
-            const heartsList = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💖', '💗', '💓', '💞', '💘', '✨', '🌸', '🎉'];
-            
-            const clickX = e ? e.clientX : window.innerWidth / 2;
-            const clickY = e ? e.clientY : window.innerHeight / 2;
+</div>
 
-            for (let i = 0; i < 35; i++) {
-                const hEl = document.createElement("div");
-                hEl.className = "burst-heart";
-                hEl.innerText = heartsList[Math.floor(Math.random() * heartsList.length)];
-                
-                hEl.style.left = clickX + "px";
-                hEl.style.top = clickY + "px";
+</section>
 
-                const dx = (Math.random() - 0.5) * 450 + "px";
-                const dy = (Math.random() - 0.5) * 450 + "px";
-                const rot = (Math.random() - 0.5) * 720 + "deg";
 
-                hEl.style.setProperty('--dx', dx);
-                hEl.style.setProperty('--dy', dy);
-                hEl.style.setProperty('--rot', rot);
 
-                container.appendChild(hEl);
+<!-- =====================================================
+PAGE 4
+===================================================== -->
 
-                setTimeout(() => {
-                    hEl.remove();
-                }, 1800);
-            }
-        }
+<section class="page" id="page4">
 
-        const canvas = document.getElementById("bg-canvas");
-        const ctx = canvas.getContext("2d");
-        let rainParticles = [];
+<div class="content">
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
+    <div style="font-size:65px;">
+        💌
+    </div>
 
-        const showerIcons = ['🌸', '🌹', '✨', '⭐', '🎉', '🎊', '🎈', '💖'];
-        for (let i = 0; i < 45; i++) {
-            rainParticles.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                speedY: Math.random() * 2 + 1,
-                speedX: Math.random() * 1 - 0.5,
-                size: Math.random() * 20 + 14,
-                icon: showerIcons[Math.floor(Math.random() * showerIcons.length)]
-            });
-        }
+    <div class="letter">
 
-        function renderShower() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let p of rainParticles) {
-                p.y += p.speedY;
-                p.x += p.speedX;
-                if (p.y > canvas.height) {
-                    p.y = -20;
-                    p.x = Math.random() * canvas.width;
-                }
-                ctx.font = `${p.size}px serif`;
-                ctx.fillText(p.icon, p.x, p.y);
-            }
-            requestAnimationFrame(renderShower);
-        }
-        renderShower();
+        <h2>
+            Happy Birthday Meri Jaan ❤️
+        </h2>
 
-        function goCountdown(e) {
-            triggerHeartBurst(e);
-            document.getElementById("page-welcome").classList.remove("active-page");
-            document.getElementById("page-countdown").classList.add("active-page");
-            updateTheme();
-            playPianoMelody();
-        }
 
-        setInterval(() => {
-            updateTheme();
-            const diff = targetDate - new Date().getTime();
-            if (diff > 0) {
-                document.getElementById("val-days").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-                document.getElementById("val-hours").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-                document.getElementById("val-mins").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-                document.getElementById("val-secs").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-            } else {
-                unlockCards();
-            }
-        }, 1000);
+        <p>
+            <b>
+            Happy Birthday Meri Jaan,
+            Meri Bubbu, Meri Mummu,
+            Meri Sab Kuch! 🥹❤️
+            </b>
+        </p>
 
-        function checkSurpriseUnlock(e) {
-            triggerHeartBurst(e);
-            if (new Date().getTime() >= targetDate) {
-                unlockCards();
-            } else {
-                setTimeout(() => {
-                    alert("Patience my love! 🙈 The birthday letter unlocks on 16th September at 12:00 AM!");
-                }, 150);
-            }
-        }
 
-        function unlockCards() {
-            document.getElementById("page-countdown").classList.remove("active-page");
-            document.getElementById("page-cards").classList.add("active-page");
-            showSlide(0);
-        }
+        <p>
+            Today is all about you,
+            the person who is incredibly
+            special and precious to me. 💖
+        </p>
 
-        function showSlide(idx) {
-            const m = memories[idx];
-            document.getElementById("card-title").innerText = m.title;
-            document.getElementById("card-image").src = m.img;
-            document.getElementById("card-desc").innerHTML = m.text;
-            if (idx === memories.length - 1) {
-                document.getElementById("btn-next-card").innerText = "End With Love ❤️";
-            }
-        }
 
-        function nextSlide(e) {
-            triggerHeartBurst(e);
-            if (currentIdx < memories.length - 1) {
-                currentIdx++;
-                showSlide(currentIdx);
-            } else {
-                setTimeout(() => {
-                    alert("I Love You Forever & Always! ❤️✨");
-                }, 150);
-            }
-        }
+        <p>
+            I pray that Allah always keeps
+            you happy, protects you from
+            every difficulty, and fills your
+            life with endless blessings. 🤲✨
+        </p>
 
-        let audioCtx;
-        function playPianoMelody() {
-            if (audioCtx) return;
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23];
-            let noteIdx = 0;
 
-            setInterval(() => {
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(notes[noteIdx % notes.length], audioCtx.currentTime);
+        <p>
+            May Allah give you success in
+            every step, peace in your heart,
+            strength whenever life gets
+            difficult, and the courage to
+            achieve every dream you have. 🌸
+        </p>
 
-                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
+        <p>
+            I will always support you,
+            encourage you, and believe in
+            you. Whatever challenges come
+            your way, never forget how
+            strong and capable you are. 🫶🏻❤️
+        </p>
 
-                osc.start();
-                osc.stop(audioCtx.currentTime + 1.2);
-                noteIdx++;
-            }, 800);
-        }
 
-        updateTheme();
-    </script>
-</body>
-                                                  </html>
-    
+        <p>
+            May every coming year bring
+            you closer to your dreams,
+            fill your life with happiness,
+            and give you countless reasons
+            to smile. 🌷✨
+        </p>
+
+
+        <p>
+            Thank you for being such a
+            beautiful and precious part of
+            my life. Thank you for all the
+            little moments, laughs,
+            conversations, care and memories
+            that make life more special. ❤️
+        </p>
+
+
+        <p>
+            <b>
+            You deserve happiness.<br>
+            You deserve success.<br>
+            You deserve peace.<br>
+            You deserve love.<br>
+            You deserve every beautiful
+            thing in this world. 💖
+            </b>
+        </p>
+
+
+        <p>
+            My biggest prayer for you is
+            that Allah blesses you with a
+            long, beautiful, peaceful and
+            successful life. May He fulfill
+            every dream in your heart,
+            protect you from every sadness,
+            and always keep you under
+            His protection. Ameen. 🤲❤️
+        </p>
+
+
+        <p>
+            No matter how much I write,
+            it will never be enough to
+            explain how special you are. 🥹❤️
+        </p>
+
+
+        <p style="text-align:center;">
+
+            <b>
+            🎂 Happy Birthday Meri Jaan,<br>
+            Meri Bubbu, Meri Mummu,<br>
+            Meri Sab Kuch! ❤️✨
+            </b>
+
+        </p>
+
+
+        <div class="signature">
+
+            Stay happy.<br>
+            Stay blessed.<br>
+            Keep smiling. 🌸💖
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+LOCKED WARNING
+===================================================== -->
+
+<div
+class="warningOverlay"
+id="warningOverlay">
+
+<div class="warningBox">
+
+    <div class="warningTeddies">
+        🧸 🧸 🧸
+    </div>
+
+    <div class="warningIcon">
+        ⚠️🔒
+    </div>
+
+    <h2>
+        Surprise Is Locked! 💌
+    </h2>
+
+    <p>
+        Oops! Your special surprise
+        isn't ready yet. 🥹❤️
+        <br><br>
+
+        <b>
+        Your Love Letter will open
+        exactly at 12:00 AM on
+        16 September. ✨
+        </b>
+
+        <br><br>
+
+        Please wait for the countdown
+        to reach zero... 💖
+    </p>
+
+    <button
+    class="surpriseBtn"
+    onclick="closeWarning()">
+
+        Okay, I'll Wait 🥹
+
+        <span class="curlyArrow">↡</span>
+
+    </button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+PAGE NAVIGATION
+===================================================== */
+
+let currentPage = 1;
+
+
+function goToPage(number){
+
+    document
+    .getElementById("page"+currentPage)
+    .classList.remove("active");
+
+
+    currentPage = number;
+
+
+    document
+    .getElementById("page"+currentPage)
+    .classList.add("active");
+
+
+    /* BIG HEART SHOWER */
+
+    massiveHeartShower();
+
+}
+
+
+
+/* =====================================================
+HEART CREATOR
+===================================================== */
+
+function createHeart(){
+
+    const heart =
+    document.createElement("div");
+
+
+    const hearts = [
+
+        "❤️",
+        "🩷",
+        "💖",
+        "💗",
+        "💓",
+        "💘",
+        "💝",
+        "💜",
+        "💙",
+        "💛",
+        "🧡"
+
+    ];
+
+
+    heart.className="heart";
+
+
+    heart.innerHTML =
+    hearts[
+        Math.floor(
+            Math.random()*hearts.length
+        )
+    ];
+
+
+    heart.style.left =
+    Math.random()*100+"vw";
+
+
+    heart.style.fontSize =
+    (18+Math.random()*35)+"px";
+
+
+    heart.style.animationDuration =
+    (3+Math.random()*4)+"s";
+
+
+    document.body.appendChild(heart);
+
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },8000);
+
+}
+
+
+function massiveHeartShower(){
+
+    for(let i=0;i<100;i++){
+
+        setTimeout(
+            createHeart,
+            i*30
+        );
+
+    }
+
+}
+
+
+/* normal heart rain */
+
+setInterval(()=>{
+
+    createHeart();
+
+},900);
+
+
+
+/* =====================================================
+FLOWERS
+===================================================== */
+
+function createFlower(){
+
+    const flower =
+    document.createElement("div");
+
+
+    const flowers = [
+
+        "🌸",
+        "🌺",
+        "🌷",
+        "🌹",
+        "🌻",
+        "🌼",
+        "💐"
+
+    ];
+
+
+    flower.className="flower";
+
+
+    flower.innerHTML =
+    flowers[
+        Math.floor(
+            Math.random()*flowers.length
+        )
+    ];
+
+
+    flower.style.left =
+    Math.random()*100+"vw";
+
+
+    flower.style.fontSize =
+    (20+Math.random()*35)+"px";
+
+
+    flower.style.animationDuration =
+    (6+Math.random()*7)+"s";
+
+
+    document.body.appendChild(flower);
+
+
+    setTimeout(()=>{
+
+        flower.remove();
+
+    },14000);
+
+}
+
+
+setInterval(
+    createFlower,
+    550
+);
+
+
+
+/* =====================================================
+THEME CHANGES
+EVERY 5 MINUTES
+===================================================== */
+
+const themes=[
+
+`
+radial-gradient(circle at 20% 20%,#5b005f,transparent 35%),
+radial-gradient(circle at 80% 80%,#002d48,transparent 35%),
+#050009
+`,
+
+`
+radial-gradient(circle at 80% 20%,#62002d,transparent 35%),
+radial-gradient(circle at 20% 80%,#001d51,transparent 35%),
+#07000d
+`,
+
+`
+radial-gradient(circle at center,#380060,transparent 45%),
+radial-gradient(circle at bottom,#003e3b,transparent 45%),
+#050008
+`,
+
+`
+radial-gradient(circle at top,#650044,transparent 40%),
+radial-gradient(circle at bottom,#001e4b,transparent 40%),
+#050008
+`
+
+];
+
+
+let themeIndex=0;
+
+
+setInterval(()=>{
+
+    themeIndex++;
+
+    if(themeIndex>=themes.length){
+        themeIndex=0;
+    }
+
+    document.body.style.background=
+    themes[themeIndex];
+
+},300000);
+
+
+
+/* =====================================================
+COUNTDOWN
+16 SEPTEMBER 2026
+12:00 AM
+===================================================== */
+
+const birthday =
+new Date(
+    "September 16, 2026 00:00:00"
+).getTime();
+
+
+let unlocked=false;
+
+
+function updateCountdown(){
+
+    const now =
+    new Date().getTime();
+
+
+    const distance =
+    birthday-now;
+
+
+    /* ======================
+       TIME HAS ARRIVED
+    ====================== */
+
+    if(distance<=0){
+
+        unlocked=true;
+
+
+        document.getElementById("days")
+        .innerText="00";
+
+        document.getElementById("hours")
+        .innerText="00";
+
+        document.getElementById("minutes")
+        .innerText="00";
+
+        document.getElementById("seconds")
+        .innerText="00";
+
+
+        const button =
+        document.getElementById("letterButton");
+
+
+        button.classList.remove("lockedBtn");
+
+
+        button.innerHTML =
+        `
+        💌 Open Love Letter
+
+        <span class="curlyArrow">↡</span>
+        `;
+
+
+        document
+        .querySelector(".neonTitle")
+        .innerHTML =
+        "🎉 It's Your Birthday! 🎉";
+
+
+        massiveHeartShower();
+
+
+        return;
+
+    }
+
+
+    /* ======================
+       CALCULATE TIME
+    ====================== */
+
+    const days =
+    Math.floor(
+        distance/
+        (1000*60*60*24)
+    );
+
+
+    const hours =
+    Math.floor(
+        (distance%
+        (1000*60*60*24))/
+        (1000*60*60)
+    );
+
+
+    const minutes =
+    Math.floor(
+        (distance%
+        (1000*60*60))/
+        (1000*60)
+    );
+
+
+    const seconds =
+    Math.floor(
+        (distance%
+        (1000*60))/
+        1000
+    );
+
+
+    document.getElementById("days")
+    .innerText=days;
+
+
+    document.getElementById("hours")
+    .innerText=
+    String(hours).padStart(2,"0");
+
+
+    document.getElementById("minutes")
+    .innerText=
+    String(minutes).padStart(2,"0");
+
+
+    doc
